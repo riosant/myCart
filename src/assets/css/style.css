@@ -1,0 +1,114 @@
+@import "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap";
+@import "https://use.fontawesome.com/releases/v5.15.4/css/all.css";
+
+body {
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    background-color: #e5e6ed;
+    font-size: 0.9em;
+}
+header {
+    margin-bottom: 40px;
+}
+.product-card {
+    line-height: 1.5rem;
+}
+.pricing-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+footer {
+    margin-top: 40px;
+    width: 100%;
+}
+.product-image {
+    width: auto;
+    height: 100px;
+}
+.cart-desc-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.cart-box .btn-remove {
+    color: #657c78 !important;
+    font-size: 0.8em;
+    cursor: pointer;
+    width: 100px;
+}
+.cart-box .qty-box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 10px;
+}
+.duo-box {
+    font-size: 0.7rem;
+}
+.cart-desc-box .prod-name {
+    font-weight: 400;
+    font-size: 0.9em;
+}
+.fs9 {
+    font-size: 0.9em;
+}
+.fs-8 {
+    font-size: 0.8em;
+}
+.duo-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.duo-box p:first-child {
+    width: 70%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 500;
+    color: #7e858e;
+}
+.duo-box p:nth-child(2) {
+  font-weight: 500;
+    color: #7e858e;
+}
+.cart-box .price {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 10px;
+    margin: 15px 0;
+}
+.cart-subtotal {
+    display: flex;
+    justify-content: space-between;
+}
+.desc-box p:first-child{
+    font-weight: 500 !important;
+    color: #7e858e;
+}
+.desc-box .desc {
+    font-weight: 400 !important;
+    color: #7e858e;
+    font-size: 0.9em;
+}
+
+.shipping-details-box {
+    margin: 20px 0;
+}
+.shipping-details-box .form-label, .shipping-details-box input {
+    font-size: 0.9em !important;
+}
+.shipping-details-box .form-group {
+    margin: 8px 0;
+}
+.shipping-details-box .form-label {
+    font-size: 0.85em !important;
+}
+.error {
+    display: block;
+    font-size: 0.8em;
+    color: #bf4c1e;
+    margin-top: 4px;
+}
