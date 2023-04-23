@@ -117,14 +117,20 @@ const Checkout = () => {
                                 <p>{totalItemsQuantityInCart}</p>
                             </div>
                             <div className="duo-box">
-                                <p>Total</p>
-                                <p>${parseFloat(totalPrice).toFixed(2)}</p>
+                                <p>Delivery</p>
+                                <p>Free</p>
                             </div>
 
                             <hr/>
-                            <MDBBtn className="w-100">
-                                PLACE ORDER
-                            </MDBBtn>
+
+                            <div className="duo-box">
+                                <h6>Total</h6>
+                                <h6>${parseFloat(totalPrice).toFixed(2)}</h6>
+                            </div>
+
+                            {/*<MDBBtn onC className="w-100 mt-4">*/}
+                            {/*    PLACE ORDER*/}
+                            {/*</MDBBtn>*/}
                         </MDBCardBody>
                     </MDBCard>
                 </MDBCol>

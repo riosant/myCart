@@ -10,6 +10,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Cart from "./components/Cart";
 import NotFound from "./components/NotFound";
 import Checkout from "./components/Checkout";
+import OrderSuccess from "./components/OrderSuccess";
 
 function App() {
     return (
@@ -22,6 +23,7 @@ function App() {
                             <Route path="/" element={<Products/>}/>
                             <Route path="/cart" element={<Cart/>}/>
                             <Route path="/checkout" element={<Checkout/>}/>
+                            <Route path="/order-success" element={<OrderSuccess/>}/>
                             <Route path="*" element={<NotFound />}/>
                         </Routes>
                     </MDBContainer>

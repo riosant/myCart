@@ -12,6 +12,9 @@ import {
 import {useEffect, useState} from "react";
 import {Form, Formik} from "formik";
 import * as Yup from 'yup'
+import {addPaymentDetails, changePaymentMode} from "../redux/payment/paymentActions";
+import {useDispatch, useSelector} from "react-redux";
+import {useNavigate} from "react-router-dom";
 
 const validationSchema = Yup.object().shape({
     cardHolderName: Yup.string().required('Please enter card holder name'),
@@ -26,16 +29,23 @@ const validationSchema = Yup.object().shape({
 
 const PaymentDetails = () => {
 
-    const [iconsActive, setIconsActive] = useState('tab1')
+    const [iconsActive, setIconsActive] = useState('online')
     const [monthRange, setMonthRange] = useState([])
     const [yearRange, setYearRange] = useState([])
 
-    const handleIconsClick = (value) => {
-        if (value === iconsActive) {
-            return;
-        }
+    const payment = useSelector(state => state.payment)
 
-        setIconsActive(value);
+    const navigate = useNavigate()
+    console.log(payment)
+
+    const dispatch = useDispatch()
+
+    console.log()
+
+    const handleIconsClick = (tabName) => {
+        if (tabName === iconsActive) return
+        setIconsActive(tabName);
+        dispatch(changePaymentMode(tabName))
     };
 
     const getMonthRange = () => {
@@ -55,26 +65,27 @@ const PaymentDetails = () => {
         getYearRange();
     }, [])
     const handlePaymentSubmit = values => {
-        console.log(values);
+        dispatch(addPaymentDetails(values))
+        navigate("/order-success")
     }
 
     return (
         <div className="payment-box details-box">
             <MDBTabs className='mb-3'>
                 <MDBTabsItem>
-                    <MDBTabsLink onClick={() => handleIconsClick('tab1')} active={iconsActive === 'tab1'}>
+                    <MDBTabsLink onClick={() => handleIconsClick('online')} active={iconsActive === 'online'}>
                         <MDBIcon fas icon='credit-card' className='me-2'/> Card
                     </MDBTabsLink>
                 </MDBTabsItem>
                 <MDBTabsItem>
-                    <MDBTabsLink onClick={() => handleIconsClick('tab2')} active={iconsActive === 'tab2'}>
+                    <MDBTabsLink onClick={() => handleIconsClick('offline')} active={iconsActive === 'offline'}>
                         <MDBIcon fas icon='chart-line' className='me-2'/> Cash on Delivery
                     </MDBTabsLink>
                 </MDBTabsItem>
             </MDBTabs>
 
             <MDBTabsContent>
-                <MDBTabsPane show={iconsActive === 'tab1'}>
+                <MDBTabsPane show={iconsActive === 'online'}>
                     <Formik
                         initialValues={{
                             cardHolderName: '',
@@ -188,7 +199,7 @@ const PaymentDetails = () => {
                                         <span className="error">{errors.CVV}</span>
                                     </MDBCol>
                                     <MDBCol className="mt-4">
-                                        <MDBBtn className="w-100">
+                                        <MDBBtn type="submit" className="w-100">
                                             PLACE ORDER
                                         </MDBBtn>
                                     </MDBCol>
@@ -197,7 +208,7 @@ const PaymentDetails = () => {
                         )}
                     </Formik>
                 </MDBTabsPane>
-                <MDBTabsPane show={iconsActive === 'tab2'}>
+                <MDBTabsPane show={iconsActive === 'offline'}>
                     <MDBBtn className="w-100">
                         PLACE ORDER WITH CASH ON DELIVERY
                     </MDBBtn>

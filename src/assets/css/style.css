@@ -176,3 +176,14 @@ label {
 select::after {
     display: none;
 }
+
+.order-success label{
+    font-weight: 500;
+    font-size: 0.9em;
+    display: block;
+}
+
+.order-success .form-group{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
