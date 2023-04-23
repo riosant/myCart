@@ -15,8 +15,7 @@ const validationSchema = Yup.object().shape({
     city: Yup.string().required("Please choose city"),
     pincode: Yup.number().required("Please enter pincode")
         .test('test', 'Invalid pincode', (pincode) => pincode.toString().length === 6),
-    phone: Yup.number().required("Please enter phone number").
-    min(10, "Phone number must be 10 characters in length")
+    phone: Yup.number().required("Please enter phone number").min(10, "Phone number must be 10 characters in length")
 });
 const ShippingDetails = (
     {
@@ -37,26 +36,26 @@ const ShippingDetails = (
     }
 
     return (
-        <Formik
-            initialValues={{
-                fullName: '',
-                address: '',
-                country: '',
-                state: '',
-                city: '',
-                pincode: '',
-                phone: ''
-            }}
-            validationSchema={validationSchema}
-            onSubmit={(values) => {
-                handleShippingSubmit(values);
-            }}
-        >
-            {({values, errors, setFieldValue}) => (
-                <Form>
-                    <div className="details-box">
-                        <MDBRow>
+        <div className="details-box">
+            <Formik
+                initialValues={{
+                    fullName: '',
+                    address: '',
+                    country: '',
+                    state: '',
+                    city: '',
+                    pincode: '',
+                    phone: ''
+                }}
+                validationSchema={validationSchema}
+                onSubmit={(values) => {
+                    handleShippingSubmit(values);
+                }}
+            >
+                {({values, errors, setFieldValue}) => (
+                    <Form>
 
+                        <MDBRow>
                             <MDBCol md={12} className="form-group">
                                 <MDBInput
                                     label='Full Name*'
@@ -147,11 +146,12 @@ const ShippingDetails = (
                                 <span className="error"> {errors.phone} </span>
                             </MDBCol>
                         </MDBRow>
-                    </div>
-                    <MDBBtn type="submit">PROCEED</MDBBtn>
-                </Form>
-            )}
-        </Formik>
+
+                        <MDBBtn type="submit">PROCEED</MDBBtn>
+                    </Form>
+                )}
+            </Formik>
+        </div>
     )
 }
 

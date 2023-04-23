@@ -15,8 +15,7 @@ const validationSchema = Yup.object().shape({
     city: Yup.string().required("Please choose city"),
     pincode: Yup.number().required("Please enter pincode")
         .test('test', 'Invalid pincode', (pincode) => pincode.toString().length === 6),
-    phone: Yup.number().required("Please enter phone number").
-    min(10, "Phone number must be 10 characters in length")
+    phone: Yup.number().required("Please enter phone number").min(10, "Phone number must be 10 characters in length")
 });
 const BillingDetails = (
     {
@@ -37,24 +36,24 @@ const BillingDetails = (
     }
 
     return (
-        <Formik
-            initialValues={{
-                fullName: '',
-                address: '',
-                country: '',
-                state: '',
-                city: '',
-                pincode: '',
-                phone: ''
-            }}
-            validationSchema={validationSchema}
-            onSubmit={(values) => {
-                handleBillingFormSubmit(values);
-            }}
-        >
-            {({values, errors, setFieldValue}) => (
-                <Form>
-                    <div className="details-box">
+        <div className="details-box">
+            <Formik
+                initialValues={{
+                    fullName: '',
+                    address: '',
+                    country: '',
+                    state: '',
+                    city: '',
+                    pincode: '',
+                    phone: ''
+                }}
+                validationSchema={validationSchema}
+                onSubmit={(values) => {
+                    handleBillingFormSubmit(values);
+                }}
+            >
+                {({values, errors, setFieldValue}) => (
+                    <Form>
                         <MDBRow>
                             <MDBCol md={12} className="form-group">
                                 <MDBInput
@@ -146,11 +145,11 @@ const BillingDetails = (
                                 <span className="error"> {errors.phone} </span>
                             </MDBCol>
                         </MDBRow>
-                    </div>
-                    <MDBBtn type="submit">PROCEED TO PAYMENT</MDBBtn>
-                </Form>
-            )}
-        </Formik>
+                        <MDBBtn type="submit">PROCEED TO PAYMENT</MDBBtn>
+                    </Form>
+                )}
+            </Formik>
+        </div>
     )
 }
 

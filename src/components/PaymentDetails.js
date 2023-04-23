@@ -13,7 +13,16 @@ import {useEffect, useState} from "react";
 import {Form, Formik} from "formik";
 import * as Yup from 'yup'
 
-const validationSchema = Yup.object().shape({})
+const validationSchema = Yup.object().shape({
+    cardHolderName: Yup.string().required('Please enter card holder name'),
+    cardNumber1: Yup.number().required("Please enter valid card number"),
+    cardNumber2: Yup.number().required("Please enter valid card number"),
+    cardNumber3: Yup.number().required("Please enter valid card number"),
+    cardNumber4: Yup.number().required("Please enter valid card number"),
+    expirationMonth: Yup.number().required("Please enter expiration date"),
+    expirationYear: Yup.number().required("Please enter expiration date"),
+    CVV: Yup.number().required("Please enter CVV number"),
+})
 
 const PaymentDetails = () => {
 
@@ -73,7 +82,8 @@ const PaymentDetails = () => {
                             cardNumber2: '',
                             cardNumber3: '',
                             cardNumber4: '',
-                            expirationDate: '',
+                            expirationMonth: '',
+                            expirationYear: '',
                             CVV: ''
                         }}
                         validationSchema={validationSchema}
@@ -92,9 +102,9 @@ const PaymentDetails = () => {
                                             id='cardHolderName'
                                             type='text'
                                             onChange={element => setFieldValue(element.target.name, element.target.value)}
-                                            value={values.fullName}
+                                            value={values.cardHolderName}
                                         />
-                                        <span className="error"> {errors.fullName} </span>
+                                        <span className="error"> {errors.cardHolderName} </span>
                                     </MDBCol>
                                 </MDBRow>
 
@@ -138,23 +148,32 @@ const PaymentDetails = () => {
                                                 placeholder="****"
                                             />
                                         </div>
-                                        <span className="error"> {errors.cardNumber} </span>
+                                        <span className="error"> {errors.cardNumber1 || errors.cardNumber2 || errors.cardNumber3 || errors.cardNumber4} </span>
                                     </MDBCol>
 
                                     <MDBCol md={6} className="date-range">
                                         <label className="fs-8">Expiration Date</label>
-                                        <select name="expirationMonth" className="form-select-sm select-month">
+                                        <select name="expirationMonth"
+                                                className="form-select-sm select-month"
+                                                onChange={e => setFieldValue(e.target.name, e.target.value)}
+                                        >
                                             <option value="">MM</option>
                                             {monthRange.map(month => {
-                                                return <option value={month}>{month}</option>
+                                                return <option value={month} key={month}>{month}</option>
                                             })}
                                         </select>
-                                        <select name="expirationMonth" className="form-select-sm select-year">
+                                        <select
+                                            name="expirationYear"
+                                            className="form-select-sm select-year"
+                                            onChange={e => setFieldValue(e.target.name, e.target.value)}
+                                        >
                                             <option value="">YYYY</option>
                                             {yearRange.map(year => {
-                                                return <option value={year}>{year}</option>
+                                                return <option value={year} key={year}>{year}</option>
                                             })}
                                         </select>
+                                        <span className="error">{errors.expirationMonth || errors.expirationYear}</span>
+
                                     </MDBCol>
                                     <MDBCol md={6}>
                                         <label className="fs-8">CVV*</label>
@@ -164,7 +183,9 @@ const PaymentDetails = () => {
                                             type="text"
                                             value={values.CVV}
                                             placeholder="***"
-                                            onChange={e => setFieldValue(e.target.name, e.target.value)}/>
+                                            onChange={e => setFieldValue(e.target.name, e.target.value)}
+                                        />
+                                        <span className="error">{errors.CVV}</span>
                                     </MDBCol>
                                     <MDBCol className="mt-4">
                                         <MDBBtn className="w-100">
@@ -177,7 +198,9 @@ const PaymentDetails = () => {
                     </Formik>
                 </MDBTabsPane>
                 <MDBTabsPane show={iconsActive === 'tab2'}>
-
+                    <MDBBtn className="w-100">
+                        PLACE ORDER WITH CASH ON DELIVERY
+                    </MDBBtn>
                 </MDBTabsPane>
             </MDBTabsContent>
         </div>

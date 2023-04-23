@@ -1,16 +1,19 @@
 import {useSelector} from "react-redux";
 import {MDBBtn, MDBCard, MDBCardBody, MDBCol, MDBCollapse, MDBRow} from "mdb-react-ui-kit";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import ShippingDetails from "./ShippingDetails";
 import BillingDetails from "./BillingDetails";
 import PaymentDetails from "./PaymentDetails";
+import {useNavigate} from "react-router-dom"
 
 const Checkout = () => {
 
     const cart = useSelector(state => state.cart);
-    const shipping = useSelector(state => state.shipping)
+    const [totalItemsQuantityInCart, setTotalItemsQuantityInCart] = useState(0)
+    const [totalPrice, setTotalPrice] = useState(0)
+    const navigate = useNavigate();
 
-    const [isShippingCardVisible, setIsShippingCardVisible] = useState(false)
+    const [isShippingCardVisible, setIsShippingCardVisible] = useState(true)
     const [isBillingCardVisible, setIsBillingCardVisible] = useState(false)
     const [isPaymentCardVisible, setIsPaymentCardVisible] = useState(false)
 
@@ -19,7 +22,6 @@ const Checkout = () => {
         setIsBillingCardVisible(false)
         setIsPaymentCardVisible(false)
     }
-
 
     const handleBillingCardToggler = () => {
         setIsBillingCardVisible(!isBillingCardVisible)
@@ -32,6 +34,29 @@ const Checkout = () => {
         setIsBillingCardVisible(false)
         setIsShippingCardVisible(false)
     }
+
+    const getTotalItemsInCart = () => {
+        const quantity = cart.items.reduce((quantity, item) => {
+            return quantity + item.quantity
+        }, 0)
+
+        setTotalItemsQuantityInCart(quantity)
+    }
+
+    const getTotalPrice = () => {
+        const price = cart.items.reduce((price, item) => {
+            return price + (item.quantity * item.discounted_price)
+        }, 0)
+        setTotalPrice(price)
+    }
+
+    useEffect(() => {
+        getTotalItemsInCart()
+        getTotalPrice()
+        if(cart.items.length <= 0) {
+            navigate("/")
+        }
+    }, [])
 
     return (
         <div>
@@ -87,17 +112,19 @@ const Checkout = () => {
                     <MDBCard>
                         <MDBCardBody>
                             <h5 className="mb-3">Cart Summary</h5>
-                            {cart.items.map(product => {
-                                return <div className="duo-box" key={product.id}>
-                                    <p>{product.name}</p>
-                                    <p>{product.currency}{parseFloat(product.discounted_price).toFixed(2)}</p>
-                                </div>
-                            })}
-                            <hr/>
                             <div className="duo-box">
-                                <p>GST 18%</p>
-                                <p></p>
+                                <p>Items</p>
+                                <p>{totalItemsQuantityInCart}</p>
                             </div>
+                            <div className="duo-box">
+                                <p>Total</p>
+                                <p>${parseFloat(totalPrice).toFixed(2)}</p>
+                            </div>
+
+                            <hr/>
+                            <MDBBtn className="w-100">
+                                PLACE ORDER
+                            </MDBBtn>
                         </MDBCardBody>
                     </MDBCard>
                 </MDBCol>
