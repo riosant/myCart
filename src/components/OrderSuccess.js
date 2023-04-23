@@ -1,7 +1,7 @@
-import {MDBCard, MDBCardBody} from "mdb-react-ui-kit";
 import {useSelector} from "react-redux";
 import {useEffect} from "react";
 import {useNavigate} from "react-router-dom"
+import {Card} from "react-bootstrap";
 
 const OrderSuccess = () => {
 
@@ -25,8 +25,8 @@ const OrderSuccess = () => {
         <div className="order-success-box">
             <h6><i className="fas fa-caret-right"/> Order placed successfully</h6>
 
-            <MDBCard className="order-success">
-                <MDBCardBody>
+            <Card className="order-success">
+                <Card.Body>
                     <h6>Shipping Details</h6>
                     <div className="form-group">
                         <label>Full Name</label>
@@ -57,11 +57,11 @@ const OrderSuccess = () => {
                         <label>Phone</label>
                         {shipping.phone}
                     </div>
-                </MDBCardBody>
-            </MDBCard>
+                </Card.Body>
+            </Card>
 
-            <MDBCard className="order-success mt-5">
-                <MDBCardBody>
+            <Card className="order-success mt-5">
+                <Card.Body>
                     <h6>Billing Details</h6>
                     <div className="form-group">
                         <label>Full Name</label>
@@ -91,12 +91,18 @@ const OrderSuccess = () => {
                         <label>Phone</label>
                         {billing.phone}
                     </div>
-                </MDBCardBody>
-            </MDBCard>
+                </Card.Body>
+            </Card>
 
-            <MDBCard className="order-success mt-5">
-                <MDBCardBody>
+            <Card className="order-success mt-5">
+                <Card.Body>
                     <h6>Payment Details</h6>
+
+                    <div className="form-group">
+                        <label>Payment Mode</label>
+                        {payment.paymentMode}
+                    </div>
+
                     <div className="form-group">
                         <label>Cardholder Name</label>
                         {payment.paymentDetails.cardHolderName}
@@ -116,8 +122,8 @@ const OrderSuccess = () => {
                         <label>CVV</label>
                         {payment.paymentDetails.CVV}
                     </div>
-                </MDBCardBody>
-            </MDBCard>
+                </Card.Body>
+            </Card>
         </div>
     )
 }

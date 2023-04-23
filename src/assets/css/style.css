@@ -166,7 +166,7 @@ label {
 }
 .date-range .select-year {
     border-left: 0;
-    margin-left: -1px;
+    margin-left: -2px;
     border-bottom-left-radius: 0;
     border-top-left-radius: 0;
     border-color: #adb0cc;
@@ -207,7 +207,14 @@ select::after {
     display: flex;
     align-items: center;
     column-gap: 10px;
-    color: #8c97a1;
+    color: #5f656a;
+}
+
+.form-label {
+    margin-bottom: 2px;
+}
+.range-box {
+    display: flex;
 }
 
 @media screen and (max-width: 992px) {

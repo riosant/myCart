@@ -1,8 +1,8 @@
 import {useDispatch, useSelector} from "react-redux";
-import {MDBBtn, MDBCard, MDBCardBody, MDBCol, MDBRow} from "mdb-react-ui-kit";
 import React, {useEffect, useState} from "react";
 import {decreaseQuantity, increaseQuantity, removeItemFromCart,} from "../redux/cart/cartActions";
 import {Link} from "react-router-dom";
+import {Button, Card, Col, Row} from "react-bootstrap";
 
 const Cart = () => {
 
@@ -28,18 +28,18 @@ const Cart = () => {
             <h3><i className="fas fa-shopping-cart"/> Cart</h3>
             <br/>
 
-            <MDBRow>
-                <MDBCol md={9}>
-                    <MDBCard>
-                        <MDBCardBody>
+            <Row>
+                <Col md={9}>
+                    <Card>
+                        <Card.Body>
                             {!!!cart.items.length && 'There are no items in your cart'}
                             {cart.items.map(product => {
                                 return <div key={product.id}>
-                                    <MDBRow className="mb-4">
-                                        <MDBCol md={2}>
+                                    <Row className="mb-4">
+                                        <Col md={2}>
                                             <img src={product.image} alt={product.name} className="product-image"/>
-                                        </MDBCol>
-                                        <MDBCol md={8}>
+                                        </Col>
+                                        <Col md={8}>
                                             <div className="cart-desc-box">
                                                 <div><p className="prod-name">{product.name}</p></div>
                                                 <div className="btn-remove"
@@ -47,22 +47,22 @@ const Cart = () => {
                                                     <i className="fas fa-trash"/> Remove
                                                 </div>
                                             </div>
-                                        </MDBCol>
-                                        <MDBCol md={2} className="qty-box-container">
+                                        </Col>
+                                        <Col md={2} className="qty-box-container">
                                             <div className="qty-box">
                                                 <div className="btn-inc">
-                                                    <MDBBtn size="sm" outline rounded
+                                                    <Button size="sm"
                                                             onClick={() => product.quantity === 1
                                                                 ? false : dispatch(decreaseQuantity(product.id))}>
                                                         <i className="fas fa-minus"></i>
-                                                    </MDBBtn>
+                                                    </Button>
                                                 </div>
                                                 <div>{product.quantity}</div>
                                                 <div className="btn-dec">
-                                                    <MDBBtn size="sm" outline rounded
+                                                    <Button size="sm"
                                                             onClick={() => dispatch(increaseQuantity(product.id))}>
                                                         <i className="fas fa-plus"></i>
-                                                    </MDBBtn>
+                                                    </Button>
                                                 </div>
                                             </div>
 
@@ -76,30 +76,30 @@ const Cart = () => {
                                                 You
                                                 save {product.currency}{parseFloat(product.original_price - product.discounted_price).toFixed(2)}
                                             </div>
-                                        </MDBCol>
-                                    </MDBRow>
+                                        </Col>
+                                    </Row>
                                     <hr/>
                                 </div>
                             })}
-                        </MDBCardBody>
-                    </MDBCard>
-                </MDBCol>
-                <MDBCol md={3}>
-                    <MDBCard className="card-subtotal">
-                        <MDBCardBody>
+                        </Card.Body>
+                    </Card>
+                </Col>
+                <Col md={3}>
+                    <Card className="card-subtotal">
+                        <Card.Body>
                             <h6 className="mb-3 cart-subtotal">
                                 <p><i className="fas fa-caret-right"/> Subtotal</p>
                                 <p>${parseFloat(cartValue).toFixed(2)}</p>
                             </h6>
                             <Link to="/checkout">
-                                <MDBBtn className="w-100">
+                                <Button className="w-100">
                                     Proceed to Checkout
-                                </MDBBtn>
+                                </Button>
                             </Link>
-                        </MDBCardBody>
-                    </MDBCard>
-                </MDBCol>
-            </MDBRow>
+                        </Card.Body>
+                    </Card>
+                </Col>
+            </Row>
 
         </div>
     )

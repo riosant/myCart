@@ -1,14 +1,3 @@
-import {
-    MDBNavbar,
-    MDBNavbarNav,
-    MDBNavbarItem,
-    MDBNavbarLink,
-    MDBNavbarToggler,
-    MDBContainer,
-    MDBIcon,
-    MDBCollapse
-} from 'mdb-react-ui-kit';
-
 import {useState} from "react";
 import {Link, NavLink} from "react-router-dom";
 
@@ -18,7 +7,7 @@ const Header = () => {
 
     return (
         <header>
-            <MDBNavbar expand='lg' light>
+            {/*<MDBNavbar expand='lg' light>
                 <MDBContainer fluid>
                     <MDBNavbarToggler
                         onClick={() => setShowBasic(!showBasic)}
@@ -44,7 +33,7 @@ const Header = () => {
                         </MDBNavbarNav>
                     </MDBCollapse>
                 </MDBContainer>
-            </MDBNavbar>
+            </MDBNavbar>*/}
         </header>
     )
 }

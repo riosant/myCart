@@ -27,7 +27,6 @@ export const removeItemFromCartRequest = () => {
 }
 
 export const removeItemFromCartSuccess = payload => {
-    console.log(payload)
     return {
         type: REMOVE_ITEM_SUCCESS,
         payload: payload
@@ -35,7 +34,6 @@ export const removeItemFromCartSuccess = payload => {
 }
 
 export const increaseQuantityRequest = () => {
-    console.log('runnign')
     return {
         type: INCREASE_QUANTITY_REQUEST,
     }
@@ -68,9 +66,7 @@ export const addItemToCart = product => {
     }
 }
 export const removeItemFromCart = productId => {
-    console.log(productId)
     return dispatch => {
-        console.log(productId)
         dispatch(removeItemFromCartRequest());
         dispatch(removeItemFromCartSuccess(productId));
     }

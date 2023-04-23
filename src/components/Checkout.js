@@ -1,11 +1,11 @@
 import {useSelector} from "react-redux";
-import {MDBBtn, MDBCard, MDBCardBody, MDBCol, MDBCollapse, MDBRow} from "mdb-react-ui-kit";
 import {useEffect, useState} from "react";
 import ShippingDetails from "./ShippingDetails";
 import BillingDetails from "./BillingDetails";
 import PaymentDetails from "./PaymentDetails";
 import {useNavigate} from "react-router-dom"
 import CurrencyFormat from "react-currency-format"
+import {Button, Card, Col, Collapse, Row} from "react-bootstrap";
 
 const Checkout = () => {
 
@@ -63,59 +63,79 @@ const Checkout = () => {
     return (
         <div>
             <h3><i className="fas fa-caret-right"/> Checkout</h3>
-            <MDBRow className="mt-4">
-                <MDBCol md={9}>
-                    <MDBCard>
-                        <MDBCardBody>
-                            <MDBBtn outline color="secondary">Shipping Address</MDBBtn>
-                            <MDBCollapse show={isShippingCardVisible}>
-                                <ShippingDetails
-                                    setIsShippingCardVisible={setIsShippingCardVisible}
-                                    setIsBillingCardVisible={setIsBillingCardVisible}
-                                    setIsPaymentCardVisible={setIsPaymentCardVisible}
-                                />
-                            </MDBCollapse>
-                        </MDBCardBody>
-                    </MDBCard>
+            <Row className="mt-4">
+                <Col md={9}>
+                    <Card>
+                        <Card.Body>
+                            <h6
+                                className="checkout-navigator"
+                                color="secondary"
+                                aria-controls="shipping-box"
+                                aria-expanded={isShippingCardVisible}
+                            >Shipping Address</h6>
+                            <Collapse in={isShippingCardVisible}>
+                                <div id="shipping-box">
+                                    <ShippingDetails
+                                        setIsShippingCardVisible={setIsShippingCardVisible}
+                                        setIsBillingCardVisible={setIsBillingCardVisible}
+                                        setIsPaymentCardVisible={setIsPaymentCardVisible}
+                                    />
+                                </div>
+                            </Collapse>
+                        </Card.Body>
+                    </Card>
 
-                    <MDBCard className="mt-3">
-                        <MDBCardBody>
-                            <div className="checkout-navigator" onClick={handleBillingCardToggler}>
-                                <i className="fas fa-arrow-left" />
-                                <MDBBtn outline color="secondary">Billing Address</MDBBtn>
+                    <Card className="mt-3">
+                        <Card.Body>
+                            <div
+                                className="checkout-navigator"
+                                onClick={handleBillingCardToggler}
+                                aria-controls="billing-box"
+                                aria-expanded={isBillingCardVisible}
+                            >
+                                <i className="fas fa-arrow-left"/>
+                                <h6 color="secondary">Billing Address</h6>
                             </div>
 
-                            <MDBCollapse show={isBillingCardVisible}>
-                                <BillingDetails
-                                    setIsShippingCardVisible={setIsShippingCardVisible}
-                                    setIsBillingCardVisible={setIsBillingCardVisible}
-                                    setIsPaymentCardVisible={setIsPaymentCardVisible}
-                                />
-                            </MDBCollapse>
-                        </MDBCardBody>
-                    </MDBCard>
+                            <Collapse in={isBillingCardVisible}>
+                                <div id="billing-box">
+                                    <BillingDetails
+                                        setIsShippingCardVisible={setIsShippingCardVisible}
+                                        setIsBillingCardVisible={setIsBillingCardVisible}
+                                        setIsPaymentCardVisible={setIsPaymentCardVisible}
+                                    />
+                                </div>
+                            </Collapse>
+                        </Card.Body>
+                    </Card>
 
-                    <MDBCard className="mt-3">
-                        <MDBCardBody>
-                            <div className="checkout-navigator" onClick={handlePaymentCardToggler}>
-                                <i className="fas fa-arrow-left" />
-                                <MDBBtn outline color="secondary">
-                                    Payment Method
-                                </MDBBtn>
+                    <Card className="mt-3">
+                        <Card.Body>
+                            <div
+                                className="checkout-navigator"
+                                onClick={handlePaymentCardToggler}
+                                aria-controls="payment-box"
+                                aria-expanded={isPaymentCardVisible}
+                            >
+                                <i className="fas fa-arrow-left"/>
+                                <h6 color="secondary">Payment Method</h6>
                             </div>
-                            <MDBCollapse show={isPaymentCardVisible}>
-                                <PaymentDetails
-                                    setIsShippingCardVisible={setIsShippingCardVisible}
-                                    setIsBillingCardVisible={setIsBillingCardVisible}
-                                    setIsPaymentCardVisible={setIsPaymentCardVisible}
-                                />
-                            </MDBCollapse>
-                        </MDBCardBody>
-                    </MDBCard>
-                </MDBCol>
-                <MDBCol md={3}>
-                    <MDBCard className="card-summary">
-                        <MDBCardBody>
+                            <Collapse in={isPaymentCardVisible}>
+                                <div id="payment-box">
+                                    <PaymentDetails
+                                        setIsShippingCardVisible={setIsShippingCardVisible}
+                                        setIsBillingCardVisible={setIsBillingCardVisible}
+                                        setIsPaymentCardVisible={setIsPaymentCardVisible}
+                                    />
+                                </div>
+
+                            </Collapse>
+                        </Card.Body>
+                    </Card>
+                </Col>
+                <Col md={3}>
+                    <Card className="card-summary">
+                        <Card.Body>
                             <h5 className="mb-3">Cart Summary</h5>
                             {cart.items.map(item => {
                                 return <div className="duo-box" key={item.name}>
@@ -152,10 +172,10 @@ const Checkout = () => {
                             {/*<MDBBtn onC className="w-100 mt-4">*/}
                             {/*    PLACE ORDER*/}
                             {/*</MDBBtn>*/}
-                        </MDBCardBody>
-                    </MDBCard>
-                </MDBCol>
-            </MDBRow>
+                        </Card.Body>
+                    </Card>
+                </Col>
+            </Row>
         </div>
     )
 }

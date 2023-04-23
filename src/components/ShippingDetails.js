@@ -1,8 +1,8 @@
-import {Form, Formik} from "formik";
-import {MDBBtn, MDBCol, MDBInput, MDBRow, MDBTextArea} from "mdb-react-ui-kit";
+import {Form as FormikForm, Formik} from "formik";
 import {addShippingDetails} from "../redux/shipping/shippingActions";
 import {useDispatch, useSelector} from "react-redux";
 import * as Yup from "yup";
+import {Button, Col, Form, Row} from "react-bootstrap";
 
 const validationSchema = Yup.object().shape({
     fullName: Yup.string().required('Please enter your full name')
@@ -14,7 +14,8 @@ const validationSchema = Yup.object().shape({
     state: Yup.string().required("Please choose state"),
     city: Yup.string().required("Please choose city"),
     pincode: Yup.number().required("Please enter pincode")
-        .test('test', 'Invalid pincode', (pincode) => pincode.toString().length === 6),
+        .test('test', 'Invalid pincode', (pincode) => pincode.toString().length === 6)
+        .typeError("Invalid pincode"),
     phone: Yup.number().required("Please enter phone number").test('min10Test', 'Phone number must be 10 characters in length', (phone) => {
         return phone.toString().length === 10
     }).typeError("Invalid phone number")
@@ -55,47 +56,52 @@ const ShippingDetails = (
                 }}
             >
                 {({values, errors, setFieldValue}) => (
-                    <Form>
-
-                        <MDBRow>
-                            <MDBCol md={12} className="form-group">
-                                <MDBInput
-                                    label='Full Name*'
+                    <FormikForm>
+                        <Row>
+                            <Col md={12} className="form-group">
+                                <Form.Label>Full Name*</Form.Label>
+                                <Form.Control
                                     name="fullName"
-                                    id='fullName'
-                                    type='text'
+                                    type="text"
+                                    placeholder="Full Name"
+                                    id="fullName"
                                     onChange={element => setFieldValue(element.target.name, element.target.value)}
                                     value={values.fullName}
                                 />
                                 <span className="error"> {errors.fullName} </span>
-                            </MDBCol>
+                            </Col>
 
-                            <MDBCol md={12} className="form-group">
-                                <MDBTextArea
-                                    label='Shipping Address*'
+                            <Col md={12} className="form-group">
+                                <Form.Label>Shipping Address*</Form.Label>
+                                <Form.Control
                                     name="address"
-                                    id='address'
+                                    type="text"
+                                    placeholder="Shipping Address"
+                                    id="address"
                                     onChange={element => setFieldValue(element.target.name, element.target.value)}
                                     value={values.address}
-                                ></MDBTextArea>
+                                />
                                 <span className="error"> {errors.address} </span>
-                            </MDBCol>
+                            </Col>
 
-                            <MDBCol md={6} className="form-group">
-                                <select
-                                    name="country"
+                            <Col md={6} className="form-group">
+                                <Form.Label>Country*</Form.Label>
+                                <Form.Select
+                                    aria-label="Choose Country"
                                     className="form-select fs-8"
+                                    name="country"
                                     onChange={element => setFieldValue(element.target.name, element.target.value)}
-                                    value={values.country}
                                 >
                                     <option value="">Choose Country</option>
                                     <option value="India">India</option>
-                                </select>
+                                </Form.Select>
                                 <span className="error"> {errors.country} </span>
-                            </MDBCol>
+                            </Col>
 
-                            <MDBCol md={6} className="form-group">
-                                <select
+                            <Col md={6} className="form-group">
+                                <Form.Label>State*</Form.Label>
+                                <Form.Select
+                                    aria-label="Choose State"
                                     name="state"
                                     id="state"
                                     className="form-select fs-8"
@@ -105,12 +111,14 @@ const ShippingDetails = (
                                     <option value="Maharashtra">Maharashtra</option>
                                     <option value="Madhya Pradesh">Madhya Pradesh</option>
                                     <option value="Uttar Pradesh">Uttar Pradesh</option>
-                                </select>
+                                </Form.Select>
                                 <span className="error"> {errors.state} </span>
-                            </MDBCol>
+                            </Col>
 
-                            <MDBCol md={6} className="form-group">
-                                <select
+                            <Col md={6} className="form-group">
+                                <Form.Label>City*</Form.Label>
+                                <Form.Select
+                                    aria-label="Choose City"
                                     name="city"
                                     id="city"
                                     className="form-select fs-8"
@@ -120,37 +128,38 @@ const ShippingDetails = (
                                     <option value="India">Crizolia</option>
                                     <option value="USA">Frensoli</option>
                                     <option value="Canada">Dromu</option>
-                                </select>
+                                </Form.Select>
                                 <span className="error"> {errors.city} </span>
-                            </MDBCol>
+                            </Col>
 
-                            <MDBCol md={6} className="form-group">
-                                <MDBInput
+                            <Col md={6} className="form-group">
+                                <Form.Label>Pincode*</Form.Label>
+                                <Form.Control
                                     name="pincode"
-                                    label='Pincode*'
+                                    type="text"
+                                    placeholder="Pincode"
                                     id='pincode'
-                                    type='number'
                                     onChange={element => setFieldValue(element.target.name, element.target.value)}
                                     value={values.pincode}
                                 />
                                 <span className="error"> {errors.pincode} </span>
-                            </MDBCol>
+                            </Col>
 
-                            <MDBCol md={12} className="form-group">
-                                <MDBInput
+                            <Col md={12} className="form-group">
+                                <Form.Label>Phone*</Form.Label>
+                                <Form.Control
                                     name="phone"
-                                    label='Phone*'
+                                    type="text"
+                                    placeholder="Phone"
                                     id='phone'
-                                    type='text'
                                     onChange={element => setFieldValue(element.target.name, element.target.value)}
                                     value={values.phone}
                                 />
                                 <span className="error"> {errors.phone} </span>
-                            </MDBCol>
-                        </MDBRow>
-
-                        <MDBBtn type="submit">PROCEED</MDBBtn>
-                    </Form>
+                            </Col>
+                        </Row>
+                        <Button type="submit" className="mt-2">PROCEED</Button>
+                    </FormikForm>
                 )}
             </Formik>
         </div>

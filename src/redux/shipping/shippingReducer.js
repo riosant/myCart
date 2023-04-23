@@ -13,7 +13,6 @@ const initialState = {
 const shippingReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_DETAILS: {
-            console.log(action.payload)
             return {
                 ...state,
                 fullName: action.payload.fullName,
