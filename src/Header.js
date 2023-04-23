@@ -41,12 +41,6 @@ const Header = () => {
                                     <span className="nav-link">Cart</span>
                                 </Link>
                             </MDBNavbarItem>
-                            <MDBNavbarItem>
-                                <MDBNavbarLink href='#'>Pricing</MDBNavbarLink>
-                            </MDBNavbarItem>
-                            <MDBNavbarItem>
-                                <MDBNavbarLink href='#'>About</MDBNavbarLink>
-                            </MDBNavbarItem>
                         </MDBNavbarNav>
                     </MDBCollapse>
                 </MDBContainer>

@@ -74,7 +74,11 @@ const Checkout = () => {
                                 Payment Method
                             </MDBBtn>
                             <MDBCollapse show={isPaymentCardVisible}>
-                                <PaymentDetails/>
+                                <PaymentDetails
+                                    setIsShippingCardVisible={setIsShippingCardVisible}
+                                    setIsBillingCardVisible={setIsBillingCardVisible}
+                                    setIsPaymentCardVisible={setIsPaymentCardVisible}
+                                />
                             </MDBCollapse>
                         </MDBCardBody>
                     </MDBCard>
