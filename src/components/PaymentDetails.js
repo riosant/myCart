@@ -17,14 +17,25 @@ import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 
 const validationSchema = Yup.object().shape({
-    cardHolderName: Yup.string().required('Please enter card holder name'),
+    cardHolderName: Yup.string().required('Please enter card holder name')
+        .test('lettersAndSpacesTest', 'Invalid card holder name', (fullName) => {
+            return /^[a-zA-Z\s]+$/.test(fullName)
+        }).test('max50', 'Card holder name cannot be larger than 50 characters', (fullName) => {
+            return fullName.toString().length <= 50
+        }),
     cardNumber1: Yup.number().required("Please enter valid card number"),
     cardNumber2: Yup.number().required("Please enter valid card number"),
     cardNumber3: Yup.number().required("Please enter valid card number"),
     cardNumber4: Yup.number().required("Please enter valid card number"),
     expirationMonth: Yup.number().required("Please enter expiration date"),
     expirationYear: Yup.number().required("Please enter expiration date"),
-    CVV: Yup.number().required("Please enter CVV number"),
+    CVV: Yup.number().required("Please enter CVV number")
+        .test('digits', 'Invalid CVV', (CVV) => {
+            return /^[0-9]+$/.test(CVV)
+        }).typeError("Invalid CVV")
+        .test('digits', 'Invalid CVV', (CVV) => {
+            return CVV.toString().length <= 3
+        }),
 })
 
 const PaymentDetails = () => {
@@ -32,15 +43,8 @@ const PaymentDetails = () => {
     const [iconsActive, setIconsActive] = useState('online')
     const [monthRange, setMonthRange] = useState([])
     const [yearRange, setYearRange] = useState([])
-
-    const payment = useSelector(state => state.payment)
-
     const navigate = useNavigate()
-    console.log(payment)
-
     const dispatch = useDispatch()
-
-    console.log()
 
     const handleIconsClick = (tabName) => {
         if (tabName === iconsActive) return
@@ -127,7 +131,11 @@ const PaymentDetails = () => {
                                                 name="cardNumber1"
                                                 id='cardNumber1'
                                                 type='text'
-                                                onChange={element => setFieldValue(element.target.name, element.target.value)}
+                                                onChange={element => {
+                                                    return element.target.value.toString().length > 4
+                                                        ? false
+                                                        : setFieldValue(element.target.name, element.target.value)
+                                                }}
                                                 value={values.cardNumber1}
                                                 placeholder="****"
                                             />
@@ -136,7 +144,11 @@ const PaymentDetails = () => {
                                                 name="cardNumber2"
                                                 id='cardNumber2'
                                                 type='text'
-                                                onChange={element => setFieldValue(element.target.name, element.target.value)}
+                                                onChange={element => {
+                                                    return element.target.value.toString().length > 4
+                                                        ? false
+                                                        : setFieldValue(element.target.name, element.target.value)
+                                                }}
                                                 value={values.cardNumber2}
                                                 placeholder="****"
                                             />
@@ -145,7 +157,11 @@ const PaymentDetails = () => {
                                                 name="cardNumber3"
                                                 id='cardNumber3'
                                                 type='text'
-                                                onChange={element => setFieldValue(element.target.name, element.target.value)}
+                                                onChange={element => {
+                                                    return element.target.value.toString().length > 4
+                                                        ? false
+                                                        : setFieldValue(element.target.name, element.target.value)
+                                                }}
                                                 value={values.cardNumber3}
                                                 placeholder="****"
                                             />
@@ -154,12 +170,17 @@ const PaymentDetails = () => {
                                                 name="cardNumber4"
                                                 id='cardNumber4'
                                                 type='text'
-                                                onChange={element => setFieldValue(element.target.name, element.target.value)}
+                                                onChange={element => {
+                                                    return element.target.value.toString().length > 4
+                                                        ? false
+                                                        : setFieldValue(element.target.name, element.target.value)
+                                                }}
                                                 value={values.cardNumber4}
                                                 placeholder="****"
                                             />
                                         </div>
-                                        <span className="error"> {errors.cardNumber1 || errors.cardNumber2 || errors.cardNumber3 || errors.cardNumber4} </span>
+                                        <span
+                                            className="error"> {errors.cardNumber1 || errors.cardNumber2 || errors.cardNumber3 || errors.cardNumber4} </span>
                                     </MDBCol>
 
                                     <MDBCol md={6} className="date-range">

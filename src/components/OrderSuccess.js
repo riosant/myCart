@@ -11,11 +11,15 @@ const OrderSuccess = () => {
     const cart = useSelector(state => state.cart);
     const navigate = useNavigate()
 
+    const reduxState = useSelector(state => state)
+
     useEffect(() => {
         if(cart.items.length <= 0) {
             navigate("/")
         }
     }, [])
+
+    console.log("Redux State : ", reduxState)
 
     return (
         <div className="order-success-box">
@@ -105,7 +109,7 @@ const OrderSuccess = () => {
 
                     <div className="form-group">
                         <label>Expiry Date</label>
-                        {payment.paymentDetails.expirationMonth} / {payment.expirationYear}
+                        {payment.paymentDetails.expirationDate}
                     </div>
 
                     <div className="form-group">

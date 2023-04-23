@@ -15,7 +15,9 @@ const validationSchema = Yup.object().shape({
     city: Yup.string().required("Please choose city"),
     pincode: Yup.number().required("Please enter pincode")
         .test('test', 'Invalid pincode', (pincode) => pincode.toString().length === 6),
-    phone: Yup.number().required("Please enter phone number").min(10, "Phone number must be 10 characters in length")
+    phone: Yup.number().required("Please enter phone number").test('min10Test', 'Phone number must be 10 characters in length', (phone) => {
+        return phone.toString().length === 10
+    }).typeError("Invalid phone number")
 });
 const ShippingDetails = (
     {
