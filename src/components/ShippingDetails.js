@@ -28,7 +28,6 @@ const ShippingDetails = (
     }
 ) => {
 
-    const shipping = useSelector(state => state.shipping)
     const dispatch = useDispatch()
 
     const handleShippingSubmit = values => {

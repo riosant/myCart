@@ -4,7 +4,7 @@ import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {addItemToCart} from "../redux/cart/cartActions";
 import {Link} from "react-router-dom";
-import {Card, Row, Col, Button} from "react-bootstrap";
+import {Button, Card, Col, Row} from "react-bootstrap";
 import CurrencyFormat from "react-currency-format";
 
 const Products = () => {
@@ -57,10 +57,7 @@ const Products = () => {
                                                     <i className="fas fa-shopping-cart"/> Add to Cart
                                                 </>}
                                             </Button>
-                                            : <Link to="/cart">
-                                                <Button>Go to Cart</Button>
-                                            </Link>
-
+                                            : <Link to="/cart"><Button>Go to Cart</Button></Link>
                                         }
                                     </div>
                                 </div>

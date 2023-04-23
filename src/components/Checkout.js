@@ -18,12 +18,6 @@ const Checkout = () => {
     const [isBillingCardVisible, setIsBillingCardVisible] = useState(false)
     const [isPaymentCardVisible, setIsPaymentCardVisible] = useState(false)
 
-    const handleShippingCardToggler = () => {
-        setIsShippingCardVisible(!isShippingCardVisible)
-        setIsBillingCardVisible(false)
-        setIsPaymentCardVisible(false)
-    }
-
     const handlePaymentCardToggler = () => {
         setIsBillingCardVisible(true)
         setIsShippingCardVisible(false)
@@ -35,7 +29,6 @@ const Checkout = () => {
         setIsBillingCardVisible(false)
         setIsPaymentCardVisible(false)
     }
-
 
     const getTotalItemsInCart = () => {
         const quantity = cart.items.reduce((quantity, item) => {
