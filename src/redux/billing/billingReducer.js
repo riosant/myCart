@@ -1,0 +1,44 @@
+import {ADD_DETAILS, UPDATE_DETAILS} from "./billingTypes";
+
+const initialState = {
+    fullName: '',
+    address: '',
+    country: '',
+    state: '',
+    city: '',
+    pincode: '',
+    phone: ''
+}
+
+const billingReducer = (state = initialState, action) => {
+    switch (action.type) {
+        case ADD_DETAILS: {
+            return {
+                ...state,
+                fullName: action.payload.fullName,
+                address: action.payload.address,
+                country: action.payload.country,
+                state: action.payload.state,
+                city: action.payload.city,
+                pincode: action.payload.pincode,
+                phone: action.payload.phone
+            }
+        }
+        case UPDATE_DETAILS:
+            return {
+                ...state,
+                fullName: action.payload.fullName,
+                address: action.payload.address,
+                country: action.payload.country,
+                state: action.payload.state,
+                city: action.payload.city,
+                pincode: action.payload.pincode,
+                phone: action.payload.phone
+            }
+        default:
+            return state
+
+    }
+}
+
+export default billingReducer

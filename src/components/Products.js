@@ -1,5 +1,5 @@
 import products from "../data/products";
-import {MDBBtn, MDBCard, MDBCardBody, MDBCardText, MDBCardTitle, MDBCol, MDBRow} from "mdb-react-ui-kit";
+import {MDBBtn, MDBCard, MDBCardBody, MDBCol, MDBRow} from "mdb-react-ui-kit";
 import Rating from "../common/Rating";
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
@@ -32,7 +32,7 @@ const Products = () => {
                                     <div className="top">
                                         <h4> {product.currency}{parseFloat(product.discounted_price).toFixed(2)}</h4>
                                         <p className="text-warning mb-1 fs9">
-                                            <strike>{product.currency}{parseFloat(product.discounted_price).toFixed(2)}</strike>
+                                            <strike>{product.currency}{parseFloat(product.original_price).toFixed(2)}</strike>
                                         </p>
                                         <p className="text-success fs9">Free Shipping</p>
                                     </div>
