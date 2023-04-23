@@ -48,7 +48,7 @@ const Cart = () => {
                                                 </div>
                                             </div>
                                         </MDBCol>
-                                        <MDBCol md={2}>
+                                        <MDBCol md={2} className="qty-box-container">
                                             <div className="qty-box">
                                                 <div className="btn-inc">
                                                     <MDBBtn size="sm" outline rounded
@@ -85,7 +85,7 @@ const Cart = () => {
                     </MDBCard>
                 </MDBCol>
                 <MDBCol md={3}>
-                    <MDBCard>
+                    <MDBCard className="card-subtotal">
                         <MDBCardBody>
                             <h6 className="mb-3 cart-subtotal">
                                 <p><i className="fas fa-caret-right"/> Subtotal</p>

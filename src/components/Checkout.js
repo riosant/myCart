@@ -5,6 +5,7 @@ import ShippingDetails from "./ShippingDetails";
 import BillingDetails from "./BillingDetails";
 import PaymentDetails from "./PaymentDetails";
 import {useNavigate} from "react-router-dom"
+import CurrencyFormat from "react-currency-format"
 
 const Checkout = () => {
 
@@ -23,17 +24,18 @@ const Checkout = () => {
         setIsPaymentCardVisible(false)
     }
 
-    const handleBillingCardToggler = () => {
-        setIsBillingCardVisible(!isBillingCardVisible)
+    const handlePaymentCardToggler = () => {
+        setIsBillingCardVisible(true)
         setIsShippingCardVisible(false)
         setIsPaymentCardVisible(false)
     }
 
-    const handlePaymentCardToggler = () => {
-        setIsPaymentCardVisible(!isPaymentCardVisible)
+    const handleBillingCardToggler = () => {
+        setIsShippingCardVisible(true)
         setIsBillingCardVisible(false)
-        setIsShippingCardVisible(false)
+        setIsPaymentCardVisible(false)
     }
+
 
     const getTotalItemsInCart = () => {
         const quantity = cart.items.reduce((quantity, item) => {
@@ -47,27 +49,25 @@ const Checkout = () => {
         const price = cart.items.reduce((price, item) => {
             return price + (item.quantity * item.discounted_price)
         }, 0)
-        setTotalPrice(price)
+        setTotalPrice(parseFloat(price).toFixed(2))
     }
 
     useEffect(() => {
         getTotalItemsInCart()
         getTotalPrice()
-        if(cart.items.length <= 0) {
+        if (cart.items.length <= 0) {
             navigate("/")
         }
     }, [])
 
     return (
         <div>
-            <h3>Checkout</h3>
-            <MDBRow>
+            <h3><i className="fas fa-caret-right"/> Checkout</h3>
+            <MDBRow className="mt-4">
                 <MDBCol md={9}>
                     <MDBCard>
                         <MDBCardBody>
-                            <MDBBtn outline color="secondary" onClick={handleShippingCardToggler}>
-                                Shipping Address
-                            </MDBBtn>
+                            <MDBBtn outline color="secondary">Shipping Address</MDBBtn>
                             <MDBCollapse show={isShippingCardVisible}>
                                 <ShippingDetails
                                     setIsShippingCardVisible={setIsShippingCardVisible}
@@ -80,9 +80,11 @@ const Checkout = () => {
 
                     <MDBCard className="mt-3">
                         <MDBCardBody>
-                            <MDBBtn outline color="secondary" onClick={handleBillingCardToggler}>
-                                Billing Address
-                            </MDBBtn>
+                            <div className="checkout-navigator" onClick={handleBillingCardToggler}>
+                                <i className="fas fa-arrow-left" />
+                                <MDBBtn outline color="secondary">Billing Address</MDBBtn>
+                            </div>
+
                             <MDBCollapse show={isBillingCardVisible}>
                                 <BillingDetails
                                     setIsShippingCardVisible={setIsShippingCardVisible}
@@ -95,9 +97,12 @@ const Checkout = () => {
 
                     <MDBCard className="mt-3">
                         <MDBCardBody>
-                            <MDBBtn outline color="secondary" onClick={handlePaymentCardToggler}>
-                                Payment Method
-                            </MDBBtn>
+                            <div className="checkout-navigator" onClick={handlePaymentCardToggler}>
+                                <i className="fas fa-arrow-left" />
+                                <MDBBtn outline color="secondary">
+                                    Payment Method
+                                </MDBBtn>
+                            </div>
                             <MDBCollapse show={isPaymentCardVisible}>
                                 <PaymentDetails
                                     setIsShippingCardVisible={setIsShippingCardVisible}
@@ -109,11 +114,25 @@ const Checkout = () => {
                     </MDBCard>
                 </MDBCol>
                 <MDBCol md={3}>
-                    <MDBCard>
+                    <MDBCard className="card-summary">
                         <MDBCardBody>
                             <h5 className="mb-3">Cart Summary</h5>
-                            <div className="duo-box">
-                                <p>Items</p>
+                            {cart.items.map(item => {
+                                return <div className="duo-box" key={item.name}>
+                                    <div className="duo-box-inner">
+                                        <p>{item.name} </p>
+                                        <p>({item.quantity})</p>
+                                    </div>
+                                    <p>
+                                        <CurrencyFormat
+                                            value={parseFloat(item.discounted_price * item.quantity).toFixed(2)}
+                                            displayType={'text'}
+                                            thousandSeparator={true}
+                                            prefix={'$'}/></p>
+                                </div>
+                            })}
+                            <div className="duo-box mt-5">
+                                <p>Total Items</p>
                                 <p>{totalItemsQuantityInCart}</p>
                             </div>
                             <div className="duo-box">
@@ -125,8 +144,10 @@ const Checkout = () => {
 
                             <div className="duo-box">
                                 <h6>Total</h6>
-                                <h6>${parseFloat(totalPrice).toFixed(2)}</h6>
+                                <h6><CurrencyFormat value={totalPrice} displayType={'text'} thousandSeparator={true}
+                                                    prefix={'$'}/></h6>
                             </div>
+
 
                             {/*<MDBBtn onC className="w-100 mt-4">*/}
                             {/*    PLACE ORDER*/}

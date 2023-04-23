@@ -2,7 +2,7 @@ const products = [
     {
         'id': 1,
         'name': 'Kritam 5l Room and Personal Air Cooler',
-        'image': 'https://rukminim1.flixcart.com/image/160/160/xif0q/air-cooler/p/x/f/220-220-artic-air-cooler-home-and-office-usb-personal-mini-air-original-imagngus3vtybgsh.jpeg?q=70',
+        'image': 'https://rukminim1.flixcart.com/image/160/160/xif0q/air-cooler/4/x/p/-original-imagmndrwtustshy.jpeg?q=70',
         'rating': 3,
         'rated_by_users_count': 200,
         'description': 'Personal Space Cooler that Lets uou The powerful, compact personal air cooler which pulls warm air from the room through its evaporative water filter to fill any space with cool, clean comfortable air ! Arctic Air cools, humidifies, and purifies for better air !',

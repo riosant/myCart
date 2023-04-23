@@ -17,8 +17,8 @@ const Products = () => {
                 return <MDBCard className="mb-5 product-card" key={product.id}>
                     <MDBCardBody>
                         <MDBRow>
-                            <MDBCol md={2}>
-                                <img src={product.image} alt={product.name}/>
+                            <MDBCol md={2} className="product-image-box">
+                                <img src={product.image} alt={product.name} className="w-100 product-image"/>
                             </MDBCol>
                             <MDBCol md={8}>
                                 <div className="desc-box">

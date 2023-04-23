@@ -1,7 +1,7 @@
 import {ADD_PAYMENT, CHANGE_PAYMENT_MODE} from "./paymentTypes";
 
 const initialState = {
-    paymentMode: '',
+    paymentMode: 'online',
     paymentDetails: {
         cardHolderName: '',
         cardNumber: '',
