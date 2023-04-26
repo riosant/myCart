@@ -6,15 +6,12 @@ import {Button, Card, Col, Row} from "react-bootstrap";
 
 const Cart = () => {
 
-    const cart = useSelector(state => state.cart)
     const dispatch = useDispatch()
-
+    const cart = useSelector(state => state.cart)
     const [cartValue, setCartValue] = useState(0);
 
     const getCartValue = () => {
-        const value = cart.items.reduce((acc, item) => {
-            return acc = parseFloat(acc) + parseFloat(item.discounted_price * item.quantity)
-        }, 0)
+        const value = cart.items.reduce((acc, item) => parseFloat(acc) + parseFloat(item.discounted_price * item.quantity), 0)
         setCartValue(value)
     }
 
@@ -26,7 +23,6 @@ const Cart = () => {
         <div className="cart-box">
             <h3><i className="fas fa-shopping-cart"/> Cart</h3>
             <br/>
-
             <Row>
                 <Col md={9}>
                     <Card>
@@ -99,7 +95,6 @@ const Cart = () => {
                     </Card>
                 </Col>
             </Row>
-
         </div>
     )
 }

@@ -5,7 +5,7 @@ import BillingDetails from "./BillingDetails";
 import PaymentDetails from "./PaymentDetails";
 import {useNavigate} from "react-router-dom"
 import CurrencyFormat from "react-currency-format"
-import {Button, Card, Col, Collapse, Row} from "react-bootstrap";
+import {Card, Col, Collapse, Row} from "react-bootstrap";
 
 const Checkout = () => {
 
@@ -31,26 +31,19 @@ const Checkout = () => {
     }
 
     const getTotalItemsInCart = () => {
-        const quantity = cart.items.reduce((quantity, item) => {
-            return quantity + item.quantity
-        }, 0)
-
+        const quantity = cart.items.reduce((quantity, item) => quantity + item.quantity, 0)
         setTotalItemsQuantityInCart(quantity)
     }
 
     const getTotalPrice = () => {
-        const price = cart.items.reduce((price, item) => {
-            return price + (item.quantity * item.discounted_price)
-        }, 0)
+        const price = cart.items.reduce((price, item) => price + (item.quantity * item.discounted_price), 0)
         setTotalPrice(parseFloat(price).toFixed(2))
     }
 
     useEffect(() => {
         getTotalItemsInCart()
         getTotalPrice()
-        if (cart.items.length <= 0) {
-            navigate("/")
-        }
+        if (cart.items.length <= 0) navigate("/")
     }, [])
 
     return (
@@ -65,7 +58,9 @@ const Checkout = () => {
                                 color="secondary"
                                 aria-controls="shipping-box"
                                 aria-expanded={isShippingCardVisible}
-                            >Shipping Address</h6>
+                            >
+                                Shipping Address
+                            </h6>
                             <Collapse in={isShippingCardVisible}>
                                 <div id="shipping-box">
                                     <ShippingDetails
@@ -121,7 +116,6 @@ const Checkout = () => {
                                         setIsPaymentCardVisible={setIsPaymentCardVisible}
                                     />
                                 </div>
-
                             </Collapse>
                         </Card.Body>
                     </Card>
@@ -141,13 +135,15 @@ const Checkout = () => {
                                             value={parseFloat(item.discounted_price * item.quantity).toFixed(2)}
                                             displayType={'text'}
                                             thousandSeparator={true}
-                                            prefix={'$'}/></p>
+                                            prefix={'$'}/>
+                                    </p>
                                 </div>
                             })}
                             <div className="duo-box mt-5">
                                 <p>Total Items</p>
                                 <p>{totalItemsQuantityInCart}</p>
                             </div>
+
                             <div className="duo-box">
                                 <p>Delivery</p>
                                 <p>Free</p>
@@ -157,14 +153,15 @@ const Checkout = () => {
 
                             <div className="duo-box">
                                 <h6>Total</h6>
-                                <h6><CurrencyFormat value={totalPrice} displayType={'text'} thousandSeparator={true}
-                                                    prefix={'$'}/></h6>
+                                <h6>
+                                    <CurrencyFormat
+                                        value={totalPrice}
+                                        displayType={'text'}
+                                        thousandSeparator={true}
+                                        prefix={'$'}
+                                    />
+                                </h6>
                             </div>
-
-
-                            {/*<MDBBtn onC className="w-100 mt-4">*/}
-                            {/*    PLACE ORDER*/}
-                            {/*</MDBBtn>*/}
                         </Card.Body>
                     </Card>
                 </Col>

@@ -1,8 +1,16 @@
 import {useDispatch, useSelector} from "react-redux";
 import {addBillingDetails} from "../redux/billing/billingActions";
 import {Button, Col, Form, Row} from "react-bootstrap";
-import {useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 
+/**
+ *
+ * @param setIsShippingCardVisible
+ * @param setIsBillingCardVisible
+ * @param setIsPaymentCardVisible
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const BillingDetails = (
     {
         setIsShippingCardVisible,
@@ -19,87 +27,69 @@ const BillingDetails = (
     const [formData, setFormData] = useState({
         fullName: '', address: '', country: '', state: '', city: '', pincode: '', phone: ''
     })
-    let errorsObj = {}
-    /*let formDataObj = {
-        fullName: '', address: '', country: '', state: '', city: '', pincode: '', phone: ''
-    }*/
-
     const setFieldValue = (fieldName, fieldValue) => {
         setFormData(prev => ({...prev, [fieldName]: fieldValue}))
-        // formDataObj = {...formDataObj, [fieldName]: fieldValue}
         validateForm()
     }
 
     const validateForm = () => {
         if (!formData.fullName) {
             setErrors({fullName: 'Please enter full name'})
-            errorsObj = {fullName: 'Please enter full name'}
             return false
         } else setErrors({})
 
         if (!/^[a-zA-Z\s]+$/.test(formData.fullName)) {
             setErrors({fullName: 'Full name can contain letters and spaces only'})
-            errorsObj = {fullName: 'Full name can contain letters and spaces only'}
             return false
         } else setErrors({})
 
         if (!formData.address) {
             setErrors({address: 'Please enter shipping address'})
-            errorsObj = {address: 'Please enter shipping address'}
             return false
         } else setErrors({})
 
         if (!formData.country) {
             setErrors({country: 'Please choose country'})
-            errorsObj = {country: 'Please choose country'}
             return false
         } else setErrors({})
 
         if (!formData.state) {
             setErrors({state: 'Please choose state'})
-            errorsObj = {state: 'Please choose state'}
             return false
         } else setErrors({})
 
         if (!formData.city) {
             setErrors({city: 'Please choose city'})
-            errorsObj = {city: 'Please choose city'}
             return false
         } else setErrors({})
 
         if (!formData.pincode) {
             setErrors({pincode: 'Please enter pincode'})
-            errorsObj = {pincode: 'Please enter pincode'}
             return false
         } else setErrors({})
 
         if (formData.pincode.toString().length !== 6) {
             setErrors({pincode: 'Invalid pincode'})
-            errorsObj = {pincode: 'Invalid pincode'}
             return false
         } else setErrors({})
 
         if (!/^[0-9]*$/.test(formData.pincode)) {
             setErrors({pincode: 'Pincode can contain numbers only'})
-            errorsObj = {pincode: 'Pincode can contain numbers only'}
             return false
         } else setErrors({})
 
         if (!formData.phone) {
             setErrors({phone: 'Please enter phone number'})
-            errorsObj = {phone: 'Please enter phone number'}
             return false
         } else setErrors({})
 
         if (formData.phone.toString().length !== 10) {
             setErrors({phone: 'Phone number must be 10 characters in length'})
-            errorsObj = {phone: 'Please enter phone number'}
             return false
         } else setErrors({})
 
         if (!/^[0-9]*$/.test(formData.phone)) {
             setErrors({phone: 'Invalid phone number'})
-            errorsObj = {phone: 'Invalid phone number'}
             return false
         } else setErrors({})
     }
@@ -116,7 +106,8 @@ const BillingDetails = (
 
     const checkBillingSameAsShipping = () => {
         setIsBillingSameAsShipping(checkboxRef.current.checked)
-        setFormData(shipping)
+        setErrors({})
+        setFormData({...shipping})
     }
 
     return (
@@ -187,7 +178,7 @@ const BillingDetails = (
                             id="state"
                             className="form-select fs-8"
                             onChange={element => setFieldValue(element.target.name, element.target.value)}
-                            onKeyUp={element => setFieldValue(element.target.name, element.target.value)}
+                            onBlur={element => setFieldValue(element.target.name, element.target.value)}
                             value={formData.state}
                             disabled={isBillingSameAsShipping}
                         >

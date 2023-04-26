@@ -1,26 +1,16 @@
-import {Form as FormikForm, Formik} from "formik";
 import {addShippingDetails} from "../redux/shipping/shippingActions";
 import {useDispatch, useSelector} from "react-redux";
-import * as Yup from "yup";
 import {Button, Col, Form, Row} from "react-bootstrap";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 
-const validationSchema = Yup.object().shape({
-    fullName: Yup.string().required('Please enter your full name')
-        .test('lettersAndSpacesTest', 'Full name can contain letters and spaces only', (fullName) => {
-            return /^[a-zA-Z\s]+$/.test(fullName)
-        }),
-    address: Yup.string().required('Please enter shipping address'),
-    country: Yup.string().required("Please choose country"),
-    state: Yup.string().required("Please choose state"),
-    city: Yup.string().required("Please choose city"),
-    pincode: Yup.number().required("Please enter pincode")
-        .test('test', 'Invalid pincode', (pincode) => pincode.toString().length === 6)
-        .typeError("Invalid pincode"),
-    phone: Yup.number().required("Please enter phone number").test('min10Test', 'Phone number must be 10 characters in length', (phone) => {
-        return phone.toString().length === 10
-    }).typeError("Invalid phone number")
-});
+/**
+ *
+ * @param setIsShippingCardVisible
+ * @param setIsBillingCardVisible
+ * @param setIsPaymentCardVisible
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const ShippingDetails = (
     {
         setIsShippingCardVisible,
@@ -152,7 +142,7 @@ const ShippingDetails = (
                             className="form-select fs-8"
                             name="country"
                             onChange={element => setFieldValue(element.target.name, element.target.value)}
-                            onKeyUp={element => setFieldValue(element.target.name, element.target.value)}
+                            onBlur={element => setFieldValue(element.target.name, element.target.value)}
                         >
                             <option value="">Choose Country</option>
                             <option value="India">India</option>
@@ -168,7 +158,7 @@ const ShippingDetails = (
                             id="state"
                             className="form-select fs-8"
                             onChange={element => setFieldValue(element.target.name, element.target.value)}
-                            onKeyUp={element => setFieldValue(element.target.name, element.target.value)}
+                            onBlur={element => setFieldValue(element.target.name, element.target.value)}
                         >
                             <option value="">Choose State</option>
                             <option value="Maharashtra">Maharashtra</option>
@@ -186,7 +176,7 @@ const ShippingDetails = (
                             id="city"
                             className="form-select fs-8"
                             onChange={element => setFieldValue(element.target.name, element.target.value)}
-                            onKeyUp={element => setFieldValue(element.target.name, element.target.value)}
+                            onBlur={element => setFieldValue(element.target.name, element.target.value)}
                         >
                             <option value="">Choose City</option>
                             <option value="India">Crizolia</option>
@@ -226,7 +216,6 @@ const ShippingDetails = (
                 </Row>
                 <Button type="submit" className="mt-2">PROCEED</Button>
             </Form>
-
         </div>
     )
 }
