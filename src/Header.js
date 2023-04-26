@@ -1,5 +1,6 @@
 import {useState} from "react";
-import {Link, NavLink} from "react-router-dom";
+import {Link} from "react-router-dom";
+import {Container, Navbar} from "react-bootstrap";
 
 const Header = () => {
 
@@ -7,33 +8,11 @@ const Header = () => {
 
     return (
         <header>
-            {/*<MDBNavbar expand='lg' light>
-                <MDBContainer fluid>
-                    <MDBNavbarToggler
-                        onClick={() => setShowBasic(!showBasic)}
-                        aria-controls='navbarExample01'
-                        aria-expanded='false'
-                        aria-label='Toggle navigation'
-                        style={{alignSelf: 'flex-start'}}
-                    >
-                        <MDBIcon fas icon='bars' />
-                    </MDBNavbarToggler>
-                    <MDBCollapse show={showBasic} style={{width: '100%', textAlign: 'center'}}>
-                        <MDBNavbarNav right className='mb-2 mb-lg-0'>
-                            <MDBNavbarItem active>
-                                <Link to='/'>
-                                    <span className="nav-link">Home</span>
-                                </Link>
-                            </MDBNavbarItem>
-                            <MDBNavbarItem>
-                                <Link to='/cart'>
-                                    <span className="nav-link">Cart</span>
-                                </Link>
-                            </MDBNavbarItem>
-                        </MDBNavbarNav>
-                    </MDBCollapse>
-                </MDBContainer>
-            </MDBNavbar>*/}
+            <Navbar expand='lg'>
+                <Container fluid>
+                    <Link to="/">Home</Link>
+                </Container>
+            </Navbar>
         </header>
     )
 }

@@ -14,8 +14,8 @@ const Checkout = () => {
     const [totalPrice, setTotalPrice] = useState(0)
     const navigate = useNavigate();
 
-    const [isShippingCardVisible, setIsShippingCardVisible] = useState(true)
-    const [isBillingCardVisible, setIsBillingCardVisible] = useState(false)
+    const [isShippingCardVisible, setIsShippingCardVisible] = useState(false)
+    const [isBillingCardVisible, setIsBillingCardVisible] = useState(true)
     const [isPaymentCardVisible, setIsPaymentCardVisible] = useState(false)
 
     const handlePaymentCardToggler = () => {

@@ -11,17 +11,16 @@ const Cart = () => {
 
     const [cartValue, setCartValue] = useState(0);
 
-
     const getCartValue = () => {
         const value = cart.items.reduce((acc, item) => {
-            return acc = parseFloat(acc) + parseFloat(item.discounted_price)
+            return acc = parseFloat(acc) + parseFloat(item.discounted_price * item.quantity)
         }, 0)
         setCartValue(value)
     }
 
     useEffect(() => {
         getCartValue()
-    }, [])
+    }, [getCartValue])
 
     return (
         <div className="cart-box">
