@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from "react-redux";
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {decreaseQuantity, increaseQuantity, removeItemFromCart,} from "../redux/cart/cartActions";
 import {Link} from "react-router-dom";
 import {Button, Card, Col, Row} from "react-bootstrap";
@@ -10,10 +10,10 @@ const Cart = () => {
     const cart = useSelector(state => state.cart)
     const [cartValue, setCartValue] = useState(0);
 
-    const getCartValue = () => {
+    const getCartValue = useCallback(() => {
         const value = cart.items.reduce((acc, item) => parseFloat(acc) + parseFloat(item.discounted_price * item.quantity), 0)
         setCartValue(value)
-    }
+    }, [setCartValue, cart.items])
 
     useEffect(() => {
         getCartValue()

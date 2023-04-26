@@ -1,10 +1,6 @@
-import {useState} from "react";
-import {Link} from "react-router-dom";
 import {Container, Nav, Navbar} from "react-bootstrap";
 
 const Header = () => {
-
-    const [showBasic, setShowBasic] = useState(true);
 
     return (
         <header>

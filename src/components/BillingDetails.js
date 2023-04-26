@@ -1,7 +1,7 @@
 import {useDispatch, useSelector} from "react-redux";
 import {addBillingDetails} from "../redux/billing/billingActions";
 import {Button, Col, Form, Row} from "react-bootstrap";
-import {useEffect, useRef, useState} from "react";
+import {useRef, useState} from "react";
 
 /**
  *

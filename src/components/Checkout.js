@@ -1,5 +1,5 @@
 import {useSelector} from "react-redux";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import ShippingDetails from "./ShippingDetails";
 import BillingDetails from "./BillingDetails";
 import PaymentDetails from "./PaymentDetails";
@@ -30,21 +30,25 @@ const Checkout = () => {
         setIsPaymentCardVisible(false)
     }
 
-    const getTotalItemsInCart = () => {
+    const getTotalItemsInCart = useCallback(() => {
         const quantity = cart.items.reduce((quantity, item) => quantity + item.quantity, 0)
         setTotalItemsQuantityInCart(quantity)
-    }
+    }, [cart.items, setTotalItemsQuantityInCart])
 
-    const getTotalPrice = () => {
+    const getTotalPrice = useCallback(() => {
         const price = cart.items.reduce((price, item) => price + (item.quantity * item.discounted_price), 0)
         setTotalPrice(parseFloat(price).toFixed(2))
-    }
+    }, [cart.items, setTotalPrice])
+
+    const redirectIfCartIsEmpty = useCallback(() => {
+        if (cart.items.length <= 0) navigate("/")
+    }, [cart.items, navigate])
 
     useEffect(() => {
         getTotalItemsInCart()
         getTotalPrice()
-        if (cart.items.length <= 0) navigate("/")
-    }, [])
+        redirectIfCartIsEmpty()
+    }, [getTotalItemsInCart, getTotalPrice, redirectIfCartIsEmpty])
 
     return (
         <div>
@@ -57,7 +61,6 @@ const Checkout = () => {
                                 className="checkout-navigator"
                                 color="secondary"
                                 aria-controls="shipping-box"
-                                aria-expanded={isShippingCardVisible}
                             >
                                 Shipping Address
                             </h6>

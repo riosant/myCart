@@ -1,5 +1,5 @@
 import {addShippingDetails} from "../redux/shipping/shippingActions";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {Button, Col, Form, Row} from "react-bootstrap";
 import {useState} from "react";
 
@@ -18,7 +18,6 @@ const ShippingDetails = (
         setIsPaymentCardVisible
     }
 ) => {
-    const shipping = useSelector(state => state.shipping)
     const dispatch = useDispatch()
     const [errors, setErrors] = useState({})
     const [formData, setFormData] = useState({

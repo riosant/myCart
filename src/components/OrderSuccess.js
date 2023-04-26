@@ -17,7 +17,7 @@ const OrderSuccess = () => {
         if(cart.items.length <= 0) {
             navigate("/")
         }
-    }, [])
+    }, [cart.items, navigate])
 
     console.log("Redux State : ", reduxState)
 
